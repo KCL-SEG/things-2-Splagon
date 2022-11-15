@@ -1,9 +1,9 @@
 from django.test import TestCase
-from things.forms import ThingsForm
+from things.forms import ThingForm
 from things.models import Thing
 from django import forms
 
-class ThingsFormTestCase(TestCase):
+class ThingFormTestCase(TestCase):
     """Unit tests for the things form"""
 
     def setUp(self):
@@ -14,13 +14,13 @@ class ThingsFormTestCase(TestCase):
         }
 
     #valid input data
-    def test_valid_ThingsForm(self):
-        form = ThingsForm(data = self.form_input)
+    def test_valid_ThingForm(self):
+        form = ThingForm(data = self.form_input)
         self.assertTrue(form.is_valid())
 
     #has neccessary fields
     def test_form_has_neccessary_fields(self):
-        form = ThingsForm()
+        form = ThingForm()
         self.assertIn('name', form.fields)
         self.assertIn('description', form.fields)
         self.assertIn('quantity', form.fields)
@@ -29,7 +29,6 @@ class ThingsFormTestCase(TestCase):
 
     #uses model validation
     def test_form_uses_model_validation(self):
-        self.form_input['name'] = 'x' * 36
         self.form_input['quantity'] = -1
-        form = ThingsForm(data = self.form_input)
+        form = ThingForm(data = self.form_input)
         self.assertFalse(form.is_valid())
